@@ -33,6 +33,7 @@ button {
         background: $brand-rose;
         color: $white;
         width: 100%;
+        user-select: none;
 
         &:hover {
             background: darken($brand-rose, 10%);
