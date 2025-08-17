@@ -26,11 +26,11 @@ button {
         padding: 0 5px;
     }
 
-    &.fz-button {
+    &[class*="fz-"][class*="-button"] {
         height: 40px;
         padding: 0 16px;
-        border-radius: 8px;
-        background: $brand-rose;
+        border-radius: 100px;
+        background: $brand-orange;
         color: $white;
         width: 100%;
         user-select: none;
@@ -38,6 +38,22 @@ button {
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+
+        &[class*="icon"] {
+            width: fit-content;
+        }
+
+        &.outline {
+            border: 1px solid $brand-orange;
+            background: $white;
+            color: $brand-orange;
+        }
+
+        &.circle {
+            height: 40px;
+            width: 40px;
+            flex-shrink: 0;
         }
     }
 }
@@ -61,7 +77,7 @@ ul {
 input {
     width: 100%;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 100px;
     padding: 0 16px;
     border: none;
     background: $gray;

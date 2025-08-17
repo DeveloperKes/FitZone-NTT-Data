@@ -7,7 +7,7 @@ export const coursesSeeder: CoursePayload[] = [
         duration: 8,
         level: "beginner",
         instructor: "Laura Torres",
-        thumbnailUrl: "/images/courses/zumba.jpg",
+        thumbnailUrl: "https://i.postimg.cc/HLFX39TY/test-zumba.jpg",
         categoryId: 1,
         headquartersId: 1,
         price: 120000,

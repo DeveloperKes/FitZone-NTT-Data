@@ -1,64 +1,13 @@
-<section class="search-box">
+<section class="fz-section search-box">
     <input type="text" class="fz-search" placeholder="Buscar cursos" />
-    <button class="fz-button"><i class="fa-solid fa-search"></i></button>
-    <button class="fz-button"><i class="fa-solid fa-filter"></i></button>
+    <button class="fz-icon-button circle"><i class="fa-solid fa-search"></i></button>
+    <button class="fz-icon-button outline circle"><i class="fa-solid fa-filter"></i></button>
 </section>
-
-<section class="filter-box">
-    <div class="filter-item">
-        <label for="duration">Duración</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Todos</option>
-            <option value="short">Corta</option>
-            <option value="medium">Media</option>
-            <option value="long">Larga</option>
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Sede</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier sede</option>
-            @for (headquarter of headquarters; track $index) {
-            <option [value]="headquarter.id">{{headquarter.name}}</option>
-            }
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Categoría</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Todas</option>
-            @for (category of categories; track $index) {
-            <option [value]="category.id">{{category.name}}</option>
-            }
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Horario</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier día</option>
-            <option value="all">Lunes</option>
-            <option value="all">Martes</option>
-            <option value="all">Miércoles</option>
-            <option value="all">Jueves</option>
-            <option value="all">Viernes</option>
-            <option value="all">Sábado</option>
-            <option value="all">Domingo</option>
-        </select>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier jornada</option>
-            <option value="all">Mañana</option>
-            <option value="all">Tarde</option>
-            <option value="all">Noche</option>
-        </select>
-    </div>
-    <button (click)="applyFilters()" class="fz-button">Aplicar filtros</button>
+<section class="fz-section results-counter">
+    <span>Resultados encontrados: {{courses.length}}</span>
 </section>
-
-@for (course of courses; track $index) {
-<div class="course-card">
-    <h3>{{ course.title }}</h3>
-    <p>Duration: {{ course.duration }} hours</p>
-    <p>Price: {{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
-    <button class="fz-button">Comprar</button>
-</div>
-}
+<section class="fz-section course-list">
+    @for (course of courses; track $index) {
+    <fz-course-card [course]="course" />
+    }
+</section>

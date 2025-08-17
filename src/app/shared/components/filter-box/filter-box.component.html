@@ -1,0 +1,49 @@
+<section class="filter-box">
+    <div class="filter-item">
+        <label for="duration">Duración</label>
+        <select id="duration" class="fz-select">
+            <option value="all">Todos</option>
+            <option value="short">Corta</option>
+            <option value="medium">Media</option>
+            <option value="long">Larga</option>
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="duration">Sede</label>
+        <select id="duration" class="fz-select">
+            <option value="all">Cualquier sede</option>
+            @for (headquarter of headquarters; track $index) {
+            <option [value]="headquarter.id">{{headquarter.name}}</option>
+            }
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="duration">Categoría</label>
+        <select id="duration" class="fz-select">
+            <option value="all">Todas</option>
+            @for (category of categories; track $index) {
+            <option [value]="category.id">{{category.name}}</option>
+            }
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="duration">Horario</label>
+        <select id="duration" class="fz-select">
+            <option value="all">Cualquier día</option>
+            <option value="all">Lunes</option>
+            <option value="all">Martes</option>
+            <option value="all">Miércoles</option>
+            <option value="all">Jueves</option>
+            <option value="all">Viernes</option>
+            <option value="all">Sábado</option>
+            <option value="all">Domingo</option>
+        </select>
+        <select id="duration" class="fz-select">
+            <option value="all">Cualquier jornada</option>
+            <option value="all">Mañana</option>
+            <option value="all">Tarde</option>
+            <option value="all">Noche</option>
+        </select>
+    </div>
+    <button (click)="applyFilters()" class="fz-button">Aplicar filtros</button>
+</section>

@@ -1,6 +1,23 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { IMAGES } from '../../../core/constants';
 import { NgOptimizedImage } from '@angular/common';
+/**
+ * Image Component
+ * 
+ * Description...
+ * 
+ * CSS properties
+ * 
+ * --border
+ * 
+ * --border-radius
+ * 
+ * --box-shadow
+ * 
+ * --object-fit
+ * 
+ * --object-position
+ */
 @Component({
   selector: 'fz-image',
   imports: [NgOptimizedImage],
@@ -31,14 +48,31 @@ export class ImageComponent {
   @Input() class: string = '';
   @Input() width: number = 100;
   @Input() height: number = 100;
+  @Input() path: string = '';
+  @Input() alt?: string;
+  @Input() title?: string;
 
-  imgData = IMAGES[this.key];
+  imgData = this.buildImageData();
 
   ngOnChanges(): void {
-    this.imgData = IMAGES[this.key];
+    this.imgData = this.buildImageData();
   }
 
   onError() {
     this.imgData = IMAGES['FALLBACK'];
+  }
+
+  private buildImageData() {
+    if (!this.path && !this.key) return IMAGES["FALLBACK"];
+    if (!this.path) return IMAGES[this.key];
+    if (this.path && !this.alt) {
+      console.error("alt property is required");
+      return IMAGES["FALLBACK"];
+    }
+    return {
+      src: this.path,
+      alt: this.alt ?? "Image",
+      title: this.title ?? "FitZone Image"
+    }
   }
 }
