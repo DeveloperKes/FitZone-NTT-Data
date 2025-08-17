@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
-import { coursesResolver } from "../../core/resolver";
+import { coursesResolver, headquartersResolver } from "../../core/resolver";
+import { categoriesResolver } from "../../core/resolver/categories.resolver";
 
 export const appRoutes: Routes = [
     {
@@ -11,7 +12,9 @@ export const appRoutes: Routes = [
             {
                 path: 'courses', loadComponent: () => import('../../features').then(c => c.CoursesComponent),
                 resolve: {
-                    courses: coursesResolver
+                    courses: coursesResolver,
+                    headquarters: headquartersResolver,
+                    categories: categoriesResolver
                 }
             },
         ]

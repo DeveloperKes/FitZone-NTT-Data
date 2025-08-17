@@ -3,15 +3,6 @@ import { CourseSchedule } from "./Schedule";
 
 export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
 
-export type DayOfWeek =
-    | 'monday'
-    | 'tuesday'
-    | 'wednesday'
-    | 'thursday'
-    | 'friday'
-    | 'saturday'
-    | 'sunday';
-
 export type TimeSlot = 'morning' | 'afternoon' | 'evening';
 
 export interface Course {
