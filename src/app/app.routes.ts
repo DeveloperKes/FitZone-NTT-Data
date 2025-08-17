@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { appRoutes } from './layouts'
+import { appRoutes, authRoutes } from './layouts'
 
 export const routes: Routes = [
     ...appRoutes,
-    { path: 'auth', loadComponent: () => import('./layouts').then(c => c.AuthLayoutComponent) },
+    ...authRoutes,
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -38,6 +38,11 @@ button {
         &:hover {
             background: darken($brand-rose, 10%);
         }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     }
 }
 

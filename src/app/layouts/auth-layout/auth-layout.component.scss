@@ -1,0 +1,20 @@
+@use '../../../styles/mixins' as *;
+@use '../../../styles/variables' as *;
+
+main.auth-container {
+    @include flex();
+    min-height: 100vh;
+
+    background: linear-gradient(to right, $brand-orange, $brand-rose);
+    color: $black;
+
+    section.card-form {
+        @include flex(column);
+        background: $white;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        min-width: 80%;
+        max-width: 90%;
+    }
+}
