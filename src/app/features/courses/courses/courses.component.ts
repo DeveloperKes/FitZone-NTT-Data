@@ -32,9 +32,13 @@ export class CoursesComponent implements OnInit {
 
   applyFilters() {
     this._course.getCoursesByFilter({
-      // categoryId: [2],
-      headquartersId: [1],
-      level: ["advanced"]
+      categoryId: [1],
+      // headquartersId: [1],
+      level: ["advanced", "beginner"],
+      schedule: {
+        dayOfWeek: ["monday"],
+        shift: ["morning"],
+      }
     }).subscribe({
       next: (res) => {
         console.log(res);

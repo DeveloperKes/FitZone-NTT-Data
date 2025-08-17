@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CourseLevel, CourseSchedule, ResponseData } from '../../shared/interfaces';
+import { CourseLevel, DayOfWeek, ResponseData, ScheduleShift } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
 
 export interface CourseFilters {
@@ -8,7 +8,10 @@ export interface CourseFilters {
   duration?: number[],
   categoryId?: number[],
   headquartersId?: number[],
-  schedule?: CourseSchedule[];
+  schedule?: {
+    dayOfWeek: DayOfWeek[],
+    shift: ScheduleShift[],
+  };
 }
 
 @Injectable({

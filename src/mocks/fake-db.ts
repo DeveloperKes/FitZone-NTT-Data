@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-import { ResponseData, User } from "../app/shared/interfaces";
+import { DayOfWeek, ResponseData, ScheduleShift, User } from "../app/shared/interfaces";
 export class FakeBackendService {
     private readonly dbPromise = openDB("fake-db", 1, {
         upgrade(db) {
@@ -146,8 +146,19 @@ export class FakeBackendService {
             }
 
             if (url.startsWith("/courses/filter") && method === "POST") {
-                if (!body.filters) return this.buildResponse(400, null, "Not filters defined", new Error("Not filter Error"));
-                const data = await this.getByFilters("courses", body.filters);
+                const { filters } = body as { filters: Record<string, any[]> };
+                if (!filters) return this.buildResponse(400, null, "Not filters defined", new Error("Not filter Error"));
+
+                if (filters["schedule"]) {
+                    const { dayOfWeek, shift } = filters["schedule"] as unknown as { dayOfWeek: DayOfWeek[], shift: ScheduleShift[] };
+                    const schedules = await this.getByFilters("schedules", {
+                        dayOfWeek, shift
+                    })
+                    filters['id'] = schedules.map(item => item.courseId);
+                    delete filters['schedule'];
+                }
+                const data = await this.getByFilters("courses", filters);
+
                 return this.buildResponse(200, data, "Ok")
             }
             return this.buildResponse(404, null, "URL Not Found", new Error("URL Not Found"))
