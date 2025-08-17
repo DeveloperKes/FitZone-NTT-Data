@@ -1,0 +1,49 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/variables' as *;
+
+section.promotional-video {
+    @include flex-start(column);
+    align-items: flex-start;
+    gap: 1rem;
+    width: 95%;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+    height: calc(100vh - 300px);
+    clip-path: polygon(0 0,
+            100% 0,
+            100% 95%,
+            60% 95%,
+            50% 100%,
+
+            0% 100%,
+            0% 95%);
+
+
+    div.overlay {
+        position: absolute;
+        color: $white;
+        top: 0px;
+        padding: 1rem;
+        background: #1a1a1aa9;
+        background-blend-mode: soft-light;
+        width: calc(100vw - 16px);
+        height: 100%;
+        padding-top: 20%;
+
+        h1,
+        p {
+            color: $brand-orange;
+            font-weight: 400;
+            font-size: 4rem;
+            width: 100%;
+            text-transform: uppercase;
+            font-family: 'Anton', sans-serif;
+        }
+
+        p {
+            color: $white;
+        }
+    }
+}

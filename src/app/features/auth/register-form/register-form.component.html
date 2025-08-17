@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+    <fieldset class="form-group">
+        <legend>Usuario</legend>
+        <input formControlName="username" type="text" placeholder="GymRat03">
+    </fieldset>
+    <fieldset class="form-group">
+        <legend>Nombre Completo</legend>
+        <input formControlName="fullname" type="text" placeholder="Humberto Caballero">
+    </fieldset>
+    <fieldset class="form-group">
+        <legend>Correo electrónico</legend>
+        <input formControlName="email" type="email" placeholder="gymrat@gmail.com">
+    </fieldset>
+    <fieldset class="form-group">
+        <legend>Contraseña</legend>
+        <input formControlName="password" type="password" placeholder="********">
+    </fieldset>
+
+    <button (click)="registerUser()" [disabled]="form.invalid" class="fz-button">Unirme</button>
+</form>

@@ -1,0 +1,40 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+header.fz-header {
+    width: 95%;
+    @include flex-between();
+    z-index: 3;
+
+    // position: sticky;
+    // top: 1.5rem;
+    background: $gray2;
+    border-radius: 100px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    margin: auto;
+    margin-top: 1.5rem;
+    padding-right: .5rem;
+
+    fz-image.fz-logo {
+        --border-radius: 100%;
+    }
+
+    section.actions {
+        @include flex();
+        gap: 1rem;
+
+        button.fz-cart {
+            gap: 0.5rem;
+        }
+
+        button.fz-menu {
+            color: $white;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background: $brand-orange;
+        }
+    }
+
+}
