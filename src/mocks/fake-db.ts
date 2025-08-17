@@ -87,6 +87,9 @@ export class FakeBackendService {
             }
             throw new Error("Invalid credentials");
         }
+        if (url === "/courses" && method === "GET") {
+            return this.getAll("courses");
+        }
 
         throw new Error("Not Found");
     }
@@ -109,8 +112,10 @@ export class FakeBackendService {
                 db.createObjectStore(table, { keyPath: "id", autoIncrement: true });
             }
             const store = tx.objectStore(table);
-            for (const item of data) {
-                await store.add(item);
+            if (await store.count() == 0) {
+                for (const item of data) {
+                    await store.add(item);
+                }
             }
         }
         await tx.done;

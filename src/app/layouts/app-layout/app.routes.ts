@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { coursesResolver } from "../../core/resolver";
 
 export const appRoutes: Routes = [
     {
@@ -7,7 +8,12 @@ export const appRoutes: Routes = [
         children: [
             { path: '', loadComponent: () => import('../../features').then(c => c.LandingComponent) },
             { path: 'home', loadComponent: () => import('../../features').then(c => c.DashboardComponent) },
-            { path: 'courses', loadComponent: () => import('../../features').then(c => c.CoursesComponent) },
+            {
+                path: 'courses', loadComponent: () => import('../../features').then(c => c.CoursesComponent),
+                resolve: {
+                    courses: coursesResolver
+                }
+            },
         ]
     }
 ]

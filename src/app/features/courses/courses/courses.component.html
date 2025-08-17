@@ -1,1 +1,9 @@
-<p>courses works!</p>
+@for (course of $courses(); track $index) {
+<div class="course-card">
+    <h3>{{ course.title }}</h3>
+    <p>{{ course.description }}</p>
+    <p>Duration: {{ course.duration }} hours</p>
+    <p>Price: {{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
+    <button class="btn btn-primary">Enroll Now</button>
+</div>
+}
