@@ -35,10 +35,6 @@ button {
         width: 100%;
         user-select: none;
 
-        &:hover {
-            background: darken($brand-rose, 10%);
-        }
-
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
