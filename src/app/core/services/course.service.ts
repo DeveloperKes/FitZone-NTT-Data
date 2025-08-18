@@ -44,8 +44,8 @@ export class CourseService {
     return this._http.get('/api/courses');
   }
 
-  getCoursesByFilter(filters: CourseFilters): Observable<ResponseData> {
-    return this._http.post<ResponseData>('/api/courses/filter', {
+  getCoursesByFilter(filters: CourseFilters): Observable<ResponseData<Course[]>> {
+    return this._http.post<ResponseData<Course[]>>('/api/courses/filter', {
       filters
     });
   }
@@ -77,7 +77,7 @@ export class CourseService {
       }
     }).subscribe({
       next: (res) => {
-        this.list = res.data as Course[];
+        this.list = res.data;
         this._alert.closeAlert();
       }
     })

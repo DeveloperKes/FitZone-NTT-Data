@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form class="form-login" [formGroup]="form">
     <fieldset class="form-group">
         <legend>Usuario</legend>
         <input formControlName="username" type="text" placeholder="GymRat03">
@@ -8,5 +8,7 @@
         <input formControlName="password" type="password" placeholder="********">
     </fieldset>
 
-    <button (click)="login()" [disabled]="form.invalid" class="fz-button">Unirme</button>
+    <button (click)="login()" [disabled]="form.invalid" class="fz-button">Iniciar</button>
 </form>
+
+<a routerLink="/auth/register" class="fzLink registerLink">¿No tienes cuenta? Unéte al equipo</a>

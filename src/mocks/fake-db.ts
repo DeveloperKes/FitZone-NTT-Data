@@ -105,7 +105,7 @@ export class FakeBackendService {
         return results;
     }
 
-    async handleRequest(url: string, method: string, body?: any): Promise<ResponseData> {
+    async handleRequest(url: string, method: string, body?: any): Promise<ResponseData<any>> {
         try {
             if (!url.startsWith("/api/")) {
                 throw new Error("Invalid API endpoint");
@@ -118,8 +118,8 @@ export class FakeBackendService {
                 return this.buildResponse(200, data, "Ok");
             }
             if (url === "/users" && method === "POST" && body) {
-                await this.createOne("users", body);
-                return this.buildResponse(201, null, "User created")
+                const user = await this.createOne("users", body);
+                return this.buildResponse(201, user, "User created")
             }
             if (url.startsWith("/api/users/") && method === "GET") {
                 const userId = Number(url.split("/").pop());
@@ -211,7 +211,7 @@ export class FakeBackendService {
         db.close();
     }
 
-    private buildResponse(code: number, data?: any, message?: string, error?: any): ResponseData {
+    private buildResponse(code: number, data?: any, message?: string, error?: any): ResponseData<any> {
         return {
             message: message ?? "OK",
             code,

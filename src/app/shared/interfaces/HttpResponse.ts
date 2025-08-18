@@ -1,6 +1,6 @@
-export interface ResponseData {
+export interface ResponseData<T> {
     message: string,
     code: number,
-    data: any,
+    data: T,
     error: any
 }

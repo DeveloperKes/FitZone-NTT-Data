@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'fz-login-form',
-  imports: [ReactiveFormsModule
-  ],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss'
 })
@@ -13,7 +13,8 @@ export class LoginFormComponent {
   form: FormGroup;
   constructor(
     fb: FormBuilder,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _router: Router
   ) {
     this.form = fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9-_]+$/)]],
@@ -26,8 +27,9 @@ export class LoginFormComponent {
       const loginData = this.form.value;
       this._userService.loginUser(loginData.username, loginData.password).subscribe({
         next: (user) => {
-          console.log('Login successful:', user);
+          this._userService.current = user.data;
           this.form.reset();
+          this._router.navigate(["home"]);
         },
         error: (error) => {
           console.error('Login failed:', error);
