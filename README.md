@@ -1,3 +1,5 @@
+<img alt="FitZone Logo"  width="240px" src="./public/assets/images/logo.png"/>
+
 # FitZone
 
 Proyecto realizado como prueba técnica de NTT Data donde se busca explorar el conocimiento en Angular y el correcto uso de sus herramientas.
