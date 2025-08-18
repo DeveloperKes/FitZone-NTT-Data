@@ -1,0 +1,20 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/variables' as *;
+
+:host {
+    width: 100%;
+}
+
+form.form-login {
+    width: 100%;
+    @include flex(column);
+    row-gap: 16px;
+}
+
+a.registerLink {
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+    display: inline-block;
+    font-size: .9rem;
+}

@@ -3,5 +3,5 @@ export interface User {
     fullname: string;
     email: string;
     username: string;
-    readonly password?: string;
+    password?: string;
 }

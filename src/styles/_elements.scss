@@ -151,3 +151,23 @@ div.fz-select {
 fz-filter-box {
     width: 100%;
 }
+
+fieldset.form-group {
+    appearance: none;
+    border: none;
+    width: 100%;
+    @include flex-start(column);
+    row-gap: 8px;
+
+    legend {
+        color: $dark-blue;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+}
+
+a.fzLink {
+    text-decoration: none;
+    color: $brand-rose;
+    font-weight: 600;
+}

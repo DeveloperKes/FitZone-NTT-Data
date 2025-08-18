@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fz-register-form',
@@ -12,7 +13,8 @@ export class RegisterFormComponent {
   public form: FormGroup;
   constructor(
     fb: FormBuilder,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _router: Router
   ) {
     this.form = fb.group({
       fullname: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]+$/)]],
@@ -27,8 +29,9 @@ export class RegisterFormComponent {
       const userData = this.form.value;
       this._userService.createUser(userData).subscribe({
         next: (user) => {
-          console.log('User created successfully:', user);
+          this._userService.current = user.data;
           this.form.reset();
+          this._router.navigate(["home"]);
         }
         , error: (error) => {
           console.error('Error creating user:', error);
