@@ -49,11 +49,15 @@ footer.fz-footer {
             opacity: .6;
         }
 
-        ul.fz-footer-links li a {
-            color: $white;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 600;
+        ul.fz-footer-links {
+            @include flex(column);
+
+            li a {
+                color: $white;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
         }
 
         ul.fz-footer-social {

@@ -1,1 +1,8 @@
-<p>toast works!</p>
+<dialog class="toast-content" #dialogToast>
+    @if (data) {
+    <section [class]="'message ' + (data.content?.toastType ?? 'success')">
+        {{data.content?.title}}
+        <button (click)="closeToast()" class="fz-icon-button no-back"><i class="fa-solid fa-times"></i></button>
+    </section>
+    }
+</dialog>

@@ -2,7 +2,7 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 export type AlertsType = "modal" | "actionsheet" | "toast";
-
+export type ToastType = "info" | "error" | "success";
 export interface Alert {
   type: AlertsType;
   header?: {
@@ -23,6 +23,8 @@ export interface Alert {
       },
     },
     closeWithBackdrop?: boolean;
+    toastType?: ToastType;
+    timer?: number;
   },
   route?: any[]
 }
@@ -33,10 +35,11 @@ export interface Alert {
 export class AlertService {
   private readonly _open: WritableSignal<boolean> = signal(false);
   private readonly _config: WritableSignal<Alert | null> = signal(null);
-
+  private timeout: any;
   constructor(private readonly router: Router) { }
 
   openAlert(content: Alert) {
+    if (this.timeout) clearTimeout(this.timeout);
     this._config.set(content);
     if (content.route) {
       this.router.navigate([{ outlets: { modal: content.route } }])
@@ -45,8 +48,11 @@ export class AlertService {
   }
 
   closeAlert() {
+    if (this.timeout) clearTimeout(this.timeout);
     this.open.set(false);
-    this._config.set(null);
+    this.timeout = setTimeout(() => {
+      this._config.set(null);
+    }, 250)
   }
 
   get open() {

@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { coursesResolver, headquartersResolver } from "../../core/resolver";
 import { categoriesResolver } from "../../core/resolver/categories.resolver";
-import { authGuard } from "../../core/guards";
+import { authGuard } from "../../core/guards/auth.guard";
 
 export const appRoutes: Routes = [
     {
