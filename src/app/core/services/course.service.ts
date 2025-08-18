@@ -82,4 +82,15 @@ export class CourseService {
       }
     })
   }
+
+  showModal() {
+    this._alert.openAlert({
+      type: "modal",
+      header: {
+        title: this.current()?.title ?? "Código QR",
+        closeButton: true
+      },
+      route: ["qrcode"]
+    })
+  }
 }

@@ -1,6 +1,6 @@
 export const IMAGES = {
     LOGO: {
-        src: 'assets/images/logo.jpg',
+        src: 'assets/images/logo.png',
         alt: "Fit Zone Logo",
         title: "Fit Zone Logo"
     },

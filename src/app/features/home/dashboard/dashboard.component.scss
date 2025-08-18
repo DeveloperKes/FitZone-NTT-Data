@@ -1,0 +1,21 @@
+@use "../../../../styles/mixins" as *;
+@use "../../../../styles/variables" as *;
+
+section.dashboard-content {
+    width: 100%;
+    @include flex-start(column);
+    row-gap: 1rem;
+    padding: 16px;
+
+    section.courses {
+        width: 100%;
+        @include flex-start(column);
+        row-gap: 16px;
+
+        @include desktop() {
+            @include flex-start();
+            flex-wrap: wrap;
+            column-gap: 16px;
+        }
+    }
+}

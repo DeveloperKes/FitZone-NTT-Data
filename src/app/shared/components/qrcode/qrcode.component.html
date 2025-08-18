@@ -1,0 +1,10 @@
+<section class="qr-content">
+    @if(token !== ""){
+    <qrcode [qrdata]="token" [width]="256" [errorCorrectionLevel]="'M'" />
+    }
+    <h4>Muestra este código QR en la sede asignada para tomar la clase.</h4>
+    <p>Recuerda que este código es intransferible y de un único uso.</p>
+    <p>FitZone no se hace responsable por la perdida o manejo inadeacuado del mismo.</p>
+    <p>La clase debe ser tomada en su totalidad de tiempo, si el usuario se retira, no se le hará ningún tipo de
+        remuneración o reembolso.</p>
+</section>

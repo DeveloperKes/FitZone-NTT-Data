@@ -24,7 +24,7 @@ export class HeaderComponent {
   }
   openCart() {
     if (this._user.current == null) {
-      this._router.navigate(['auth', 'login']);
+      this._router.navigate(['/auth/login']);
       return;
     }
     if (this._cart.count == 0) {
@@ -40,5 +40,13 @@ export class HeaderComponent {
     }
 
     this._cart.openCart()
+  }
+
+  logout() {
+    this._user.logout();
+  }
+
+  goToHome() {
+    this._router.navigate(["/home"]);
   }
 }

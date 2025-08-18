@@ -1,8 +1,10 @@
 import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService, CartItem, CartService } from '../../../core/services';
+import { AlertService, CartItem, CartService, UserService } from '../../../core/services';
 import { CurrencyPipe } from '@angular/common';
 import { ProductTypePipe } from '../../pipes';
+import { UserProductPayload } from '../../interfaces';
+import { UserProductsService } from '../../../core/services/user-products.service';
 
 @Component({
   selector: 'fz-cart',
@@ -17,7 +19,9 @@ export class CartComponent {
   constructor(
     private readonly _router: Router,
     private readonly _cart: CartService,
-    private readonly _alert: AlertService
+    private readonly _alert: AlertService,
+    private readonly _user: UserService,
+    private readonly _products: UserProductsService,
   ) {
     effect(() => {
       this.cardItems = _cart.list;
@@ -42,18 +46,42 @@ export class CartComponent {
 
   buy() {
     this._alert.closeAlert();
-
-
-    setTimeout(() => {
-      this._cart.list = [];
-      this._alert.openAlert({
-        type: 'toast',
-        content: {
-          title: "¡Compra realizada con éxito!",
-          toastType: "success",
-          timer: 4000
+    if (this._user.current) {
+      const toRequest: UserProductPayload[] = this._cart.list.map((item) => {
+        return {
+          productId: item.itemId,
+          token: item.id,
+          userId: this._user.current!.id
         }
       })
-    }, 600);
+      this._cart.buyItems(toRequest).subscribe({
+        next: (res) => {
+          setTimeout(() => {
+            this._cart.list = [];
+            this._products.addNewProducts(res.data);
+            this._alert.openAlert({
+              type: 'toast',
+              content: {
+                title: "¡Compra realizada con éxito!",
+                toastType: "success",
+                timer: 4000
+              }
+            })
+          }, 600);
+        },
+        error: () => {
+          setTimeout(() => {
+            this._alert.openAlert({
+              type: 'toast',
+              content: {
+                title: "Ocurrio un error con la compra",
+                toastType: "error",
+                timer: 4000
+              }
+            })
+          }, 600);
+        }
+      });
+    }
   }
 }

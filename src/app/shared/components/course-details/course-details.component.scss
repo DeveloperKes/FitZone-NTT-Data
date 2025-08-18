@@ -1,6 +1,10 @@
 @use '../../../../styles/mixins' as *;
 @use '../../../../styles/variables' as *;
 
+:host{
+    width: 100%;
+}
+
 section.imageContainer {
     width: 100%;
     @include flex();
@@ -45,5 +49,9 @@ section.details {
             font-weight: 900;
             font-size: 40px;
         }
+    }
+
+    section.schedules {
+        width: 100%;
     }
 }

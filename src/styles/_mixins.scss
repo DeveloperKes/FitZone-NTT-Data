@@ -41,3 +41,9 @@
     flex-direction: $direction;
     justify-content: space-around;
 }
+
+@mixin desktop() {
+    @media (width >=1280px) {
+        @content;
+    }
+}

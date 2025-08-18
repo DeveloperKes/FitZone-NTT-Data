@@ -5,8 +5,11 @@
             <i class="fa-solid fa-cart-shopping"></i>
             <span aria-roledescription="badge" class="fz-badge">{{cardCounter}}</span>
         </button>
-        <button class="fz-menu">
-            <i class="fa-solid fa-bars"></i>
+        <button (click)="goToHome()" class="fz-icon-button circle">
+            <i class="fa-solid fa-home"></i>
+        </button>
+        <button (click)="logout()" class="fz-icon-button circle">
+            <i class="fa-solid fa-right-from-bracket"></i>
         </button>
     </section>
 </header>

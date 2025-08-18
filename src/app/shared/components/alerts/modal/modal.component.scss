@@ -14,6 +14,10 @@ dialog.alert-content {
     transition: all ease-in-out .3s;
     overflow-x: hidden;
 
+    @include desktop(){
+        width: 35%;
+    }
+
     &.open {
         transform: translateY(-10vh);
         opacity: 0.1;

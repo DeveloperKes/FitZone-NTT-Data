@@ -18,6 +18,7 @@ export interface Course {
     headquarters: Headquarters;
     price: number;
     schedule: CourseSchedule[];
+    owner?: boolean;
 }
 
 export interface CoursePayload extends Omit<Course, 'id' | 'headquarters' | 'category' | 'schedule'> {

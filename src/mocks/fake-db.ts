@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-import { Category, Course, CoursePayload, CourseSchedule, DayOfWeek, Headquarters, ResponseData, ScheduleShift, User } from "../app/shared/interfaces";
+import { Category, Course, CoursePayload, CourseSchedule, DayOfWeek, Headquarters, ResponseData, ScheduleShift, User, UserProduct, UserProductPayload } from "../app/shared/interfaces";
 export class FakeBackendService {
     private readonly dbPromise = openDB("fake-db", 1, {
         upgrade(db) {
@@ -32,6 +32,9 @@ export class FakeBackendService {
             }
             if (!db.objectStoreNames.contains("plans")) {
                 db.createObjectStore("plans", { keyPath: "id", autoIncrement: true });
+            }
+            if (!db.objectStoreNames.contains("user-products")) {
+                db.createObjectStore("user-products", { keyPath: "id", autoIncrement: true });
             }
         }
     });
@@ -120,6 +123,75 @@ export class FakeBackendService {
             if (url === "/users" && method === "POST" && body) {
                 const user = await this.createOne("users", body);
                 return this.buildResponse(201, user, "User created")
+            }
+            if (url.startsWith("/users/product") && method === "GET") {
+                const userId = Number(url.split("/").pop());
+
+                const userProducts = await this.getByFilters("user-products", { userId: [userId] }) as Partial<UserProductPayload & UserProduct>[];
+
+                const response: UserProduct[] = await Promise.all(userProducts.map(async (up) => {
+                    if (up.productId) {
+                        const product = await this.getOne("courses", up.productId) as Partial<Course & CoursePayload>;
+                        if (product) {
+                            const headquarters = await this.getAll("headquarters") as Headquarters[];
+                            const categories = await this.getAll("categories") as Category[];
+                            const schedules = await this.getAll("schedules") as CourseSchedule[];
+                            return {
+                                id: up.id,
+                                product: {
+                                    ...product,
+                                    category: categories.find(c => c.id == product.categoryId),
+                                    headquarters: headquarters.find(h => h.id === product.headquartersId),
+                                    schedule: schedules.filter(s => s.courseId === product.id),
+                                    owner: true
+                                },
+                                quantity: userProducts.reduce(
+                                    (acc, i) => i.productId == product.id ? acc + 1 : acc,
+                                    0
+                                ),
+                                token: up.token
+                            } as UserProduct;
+                        }
+                        return {} as UserProduct;
+                    }
+                    return {} as UserProduct;
+                }));
+                return this.buildResponse(200, response, "Ok")
+            }
+            if (url === "/users/product" && method === "POST" && body) {
+                const { products } = body as { products: UserProductPayload[] };
+                if (products) {
+                    const response: UserProduct[] = [];
+                    products.forEach(async (product) => {
+                        const up = await this.createOne("user-products", product);
+                        const headquarters = await this.getAll("headquarters") as Headquarters[];
+                        const categories = await this.getAll("categories") as Category[];
+                        const schedules = await this.getAll("schedules") as CourseSchedule[];
+                        const course = await this.getOne("courses", product.productId) as Partial<Course & CoursePayload>;
+                        const userProducts = await this.getByFilters("user-products", { userId: [product.userId] }) as Partial<UserProductPayload & UserProduct>[];
+
+                        if (course) {
+                            response.push({
+                                id: up.id,
+                                product: {
+                                    ...(course as Course),
+                                    id: course.id as number,
+                                    category: categories.find(c => c.id == course.categoryId) ?? ({} as Category),
+                                    headquarters: headquarters.find(h => h.id === course.headquartersId) ?? ({} as Headquarters),
+                                    schedule: schedules.filter(s => s.courseId === course.id) ?? [],
+                                    owner: true
+                                },
+                                quantity: userProducts.reduce(
+                                    (acc, i) => i.productId == course.id ? acc + 1 : acc,
+                                    0
+                                ),
+                                token: up.token
+                            } as UserProduct)
+                        }
+                    })
+                    return this.buildResponse(201, response, "Associations Created")
+                }
+                return this.buildResponse(400, [], "Products not defined", new Error("Products not defined"))
             }
             if (url.startsWith("/api/users/") && method === "GET") {
                 const userId = Number(url.split("/").pop());
