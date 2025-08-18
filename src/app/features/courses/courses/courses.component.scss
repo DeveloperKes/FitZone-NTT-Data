@@ -1,0 +1,37 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+section.fz-section {
+    padding: 0px 16px;
+    width: 100%;
+
+
+    &:not(:last-child) {
+        margin-bottom: 16px;
+    }
+
+    &.search-box {
+        @include flex();
+        column-gap: 8px;
+
+        form {
+            width: 100%;
+        }
+    }
+
+    &.results-counter {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    &.course-list {
+        @include flex(column, true);
+        row-gap: 16px;
+
+        @include desktop() {
+            flex-wrap: wrap;
+            @include flex-start();
+            column-gap: 20px;
+        }
+    }
+}

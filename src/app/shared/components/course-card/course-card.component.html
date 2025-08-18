@@ -1,0 +1,39 @@
+@if(course){
+<div class="course-card">
+    @if(quantity > 0){
+    <div class="pill quantity-pill">Actuales: {{quantity}}</div>
+    }
+    <section class="image-content">
+        <fz-image [width]="300" class="card-image" [path]="course.thumbnailUrl" [alt]="course.title"
+            [title]="course.title" />
+    </section>
+    <section class="details">
+        <h3>{{ course.title }}</h3>
+        <p><i class="fa-solid fa-user-circle"></i> {{course.instructor}}</p>
+        <p>Nivel: {{ course.level | level}}</p>
+        @if (!course.owner) {
+        <p>{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
+        }
+        @else {
+        <p>{{course.headquarters.name}} ({{course.headquarters.town}})</p>
+        }
+        <div class="buttons">
+            <button (click)="openDetails()" class="fz-button">
+                @if(!course.owner){
+                Ver más
+                }
+                @else {
+                Ver horarios
+                }
+            </button>
+            @if (!course.owner) {
+            <button (click)="addToCart()" class="fz-icon-button outline circle"><i
+                    class="fa-solid fa-cart-shopping"></i></button>
+            }
+            @else {
+            <button (click)="showQR()" class="fz-icon-button outline circle"><i class="fa-solid fa-qrcode"></i></button>
+            }
+        </div>
+    </section>
+</div>
+}

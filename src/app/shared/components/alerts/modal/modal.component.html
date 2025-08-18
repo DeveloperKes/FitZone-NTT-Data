@@ -1,0 +1,15 @@
+<dialog class="alert-content" #dialogModal>
+    @if (data) {
+    @if (data.header && (data.header.title || data.header.closeButton)) {
+    <section class="header-alert">
+        @if (data.header.title) {<h4>{{data.header.title}}</h4>}
+        @if (data.header.closeButton) {<button (click)="closeModal()" class="fz-ion-button no-back"><i
+                class="fa-solid fa-times"></i></button>}
+    </section>
+    }
+
+    @if (!data.content) {
+        <router-outlet name="modal"></router-outlet>
+    }
+    }
+</dialog>

@@ -1,0 +1,66 @@
+@use '../../../../../styles/mixins' as *;
+@use '../../../../../styles/variables' as *;
+
+dialog.alert-content {
+    @include flex(column);
+
+    width: 100%;
+    margin: auto;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    z-index: 1000;
+    min-height: 10vh;
+    transition: all ease-in-out .3s;
+    overflow-x: hidden;
+
+    @include desktop(){
+        width: 35%;
+    }
+
+    &.open {
+        transform: translateY(-10vh);
+        opacity: 0.1;
+        animation: showModal .5s forwards;
+    }
+
+    &.close {
+        transform: translateY(0);
+        opacity: 1;
+        animation: closeModal .5s forwards;
+    }
+
+    section.header-alert {
+        width: 100%;
+        @include flex-between();
+        padding: 1rem;
+        position: sticky;
+        top: 0px;
+        background: $white;
+    }
+
+}
+
+@keyframes showModal {
+    from {
+        transform: translateY(-10vh);
+        opacity: 0.1;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes closeModal {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(10vh);
+        opacity: 0.1;
+    }
+}

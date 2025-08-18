@@ -1,0 +1,51 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+div.course-card {
+    width: 100%;
+    background: $white;
+    overflow: hidden;
+    border-radius: 25px;
+    @include flex-start();
+    column-gap: 24px;
+    position: relative;
+
+    @include desktop() {
+        width: calc((100vw / 4.15) - 24px);
+        flex-shrink: 0;
+    }
+
+    section.image-content {
+        width: 200px;
+        overflow: hidden;
+        @include flex();
+        transform: scale(1.2);
+        height: 200px;
+    }
+
+    div.pill.quantity-pill {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 2;
+        flex-shrink: 0;
+    }
+
+    section.details {
+        width: 100%;
+        @include flex(column);
+        row-gap: 8px;
+        padding-right: 16px;
+
+        h3 {
+            text-align: center;
+        }
+
+        div.buttons {
+            width: 100%;
+            @include flex();
+            column-gap: 8px;
+            margin-top: 16px;
+        }
+    }
+}

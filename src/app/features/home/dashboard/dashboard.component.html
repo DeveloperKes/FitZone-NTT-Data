@@ -1,0 +1,14 @@
+<section class="dashboard-content">
+    <h2>Mis clases</h2>
+    <section class="courses">
+        @if(products.length
+        > 0){ @for (product of products; track $index) {
+        <fz-course-card [quantity]="product.quantity" [token]="product.token" [course]="product.product" />
+        }
+        }
+        @else {
+        <h3>Aún no te has inscrito a una clase.</h3>
+        }
+    </section>
+    <button [routerLink]="['/courses']" class="fz-button">Ver todos las clases</button>
+</section>

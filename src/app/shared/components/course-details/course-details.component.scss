@@ -1,0 +1,57 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/variables' as *;
+
+:host{
+    width: 100%;
+}
+
+section.imageContainer {
+    width: 100%;
+    @include flex();
+
+    fz-image {
+        --border-radius: 16px;
+    }
+}
+
+section.details {
+    width: 100%;
+    @include flex(column, true);
+    row-gap: 16px;
+    padding: 16px;
+
+    section.pills {
+        width: 100%;
+        @include flex-start();
+        column-gap: 8px;
+    }
+
+    section.buttons {
+        width: 100%;
+        @include flex(column);
+        row-gap: 8px;
+    }
+
+    strong {
+        color: $brand-rose;
+    }
+
+    section.price {
+        width: 100%;
+        @include flex-start(column);
+
+        h4 {
+            color: $dark-blue;
+        }
+
+        span.amount {
+            color: $brand-orange;
+            font-weight: 900;
+            font-size: 40px;
+        }
+    }
+
+    section.schedules {
+        width: 100%;
+    }
+}
