@@ -27,5 +27,11 @@ section.fz-section {
     &.course-list {
         @include flex(column, true);
         row-gap: 16px;
+
+        @include desktop() {
+            flex-wrap: wrap;
+            @include flex-start();
+            column-gap: 20px;
+        }
     }
 }

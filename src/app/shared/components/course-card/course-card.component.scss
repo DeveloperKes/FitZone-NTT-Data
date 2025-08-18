@@ -9,6 +9,11 @@ div.course-card {
     @include flex-start();
     column-gap: 24px;
 
+    @include desktop() {
+        width: calc((100vw / 4) - 24px);
+        flex-shrink: 0;
+    }
+
     section.image-content {
         width: 200px;
         overflow: hidden;

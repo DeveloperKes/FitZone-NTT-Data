@@ -33,7 +33,7 @@ export class HeaderComponent {
         content: {
           title: "No tienes articulos en tu carrito.",
           toastType: "info",
-          timer: 3000
+          // timer: 3000
         }
       });
       return;

@@ -16,5 +16,10 @@ main.auth-container {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         min-width: 80%;
         max-width: 90%;
+
+        @include desktop() {
+            max-width: 50%;
+            min-width: 30%;
+        }
     }
 }
