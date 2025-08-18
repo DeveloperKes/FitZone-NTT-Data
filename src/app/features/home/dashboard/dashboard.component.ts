@@ -19,14 +19,12 @@ export class DashboardComponent {
   ) {
     _active.data.subscribe({
       next: (values => {
-        _products.list = (values["products"].data || []) as UserProduct[];
+        _products.list = ([...new Map((values["products"].data || []).map((obj: any) => [obj.product.id, obj])).values()]) as UserProduct[];
       })
     })
 
     effect(() => {
-      this.products = _products.list;
-      console.log(this.products);
-
+      this.products = [...new Map(_products.list.map(obj => [obj.product.id, obj])).values()];
     })
   }
 }

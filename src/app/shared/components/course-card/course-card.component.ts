@@ -15,6 +15,7 @@ import { UserProductsService } from '../../../core/services/user-products.servic
 export class CourseCardComponent {
   @Input() course?: Course;
   @Input() token?: string;
+  @Input() quantity: number = 0;
 
   constructor(
     private readonly _alert: AlertService,

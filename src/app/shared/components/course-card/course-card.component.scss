@@ -8,9 +8,10 @@ div.course-card {
     border-radius: 25px;
     @include flex-start();
     column-gap: 24px;
+    position: relative;
 
     @include desktop() {
-        width: calc((100vw / 4) - 24px);
+        width: calc((100vw / 4.15) - 24px);
         flex-shrink: 0;
     }
 
@@ -20,6 +21,14 @@ div.course-card {
         @include flex();
         transform: scale(1.2);
         height: 200px;
+    }
+
+    div.pill.quantity-pill {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 2;
+        flex-shrink: 0;
     }
 
     section.details {

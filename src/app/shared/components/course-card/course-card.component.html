@@ -1,5 +1,8 @@
 @if(course){
 <div class="course-card">
+    @if(quantity > 0){
+    <div class="pill quantity-pill">Actuales: {{quantity}}</div>
+    }
     <section class="image-content">
         <fz-image [width]="300" class="card-image" [path]="course.thumbnailUrl" [alt]="course.title"
             [title]="course.title" />
