@@ -1,10 +1,12 @@
 <footer class="fz-footer">
+    @if (!hasUser) {
     <form class="fz-form-onboarding">
         <h2>Transforma tu vida hoy</h2>
         <h4>Únete a nuestra comunidad fitness y da el primer paso hacia tu mejor versión</h4>
         <input type="text" name="" placeholder="Ingresa tu correo electrónico" />
         <button class="fz-button">🔥 ¡Quiero unirme ahora!</button>
     </form>
+    }
 
     <fz-image key="LOGO" class="fz-logo"></fz-image>
     <section class="fz-footer-section">

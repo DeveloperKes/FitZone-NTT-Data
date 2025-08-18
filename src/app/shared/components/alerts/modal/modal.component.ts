@@ -20,8 +20,14 @@ export class ModalComponent {
       if (this._alert.open()) {
         dialog.showModal();
         dialog.classList.add("open");
+        if (this.data?.content?.timer) {
+          const timer = this.data.content.timer;
+          setTimeout(() => {
+            this.closeModal();
+          }, timer)
+        }
       } else {
-        dialog.close();
+        this.closeModal();
       }
 
       dialog.addEventListener("cancel", (e) => {
