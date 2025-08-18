@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CourseLevel, DayOfWeek, ResponseData, ScheduleShift } from '../../shared/interfaces';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Course, CourseLevel, DayOfWeek, ResponseData, ScheduleShift } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
 
 export interface CourseFilters {
@@ -19,6 +19,8 @@ export interface CourseFilters {
 })
 export class CourseService {
 
+  private course: WritableSignal<Course | null> = signal(null);
+
   constructor(private readonly _http: HttpClient) { }
 
   getAllCourses() {
@@ -29,5 +31,13 @@ export class CourseService {
     return this._http.post<ResponseData>('/api/courses/filter', {
       filters
     });
+  }
+
+  get current() {
+    return this.course;
+  }
+
+  set select(course: Course) {
+    this.course.set(course);
   }
 }

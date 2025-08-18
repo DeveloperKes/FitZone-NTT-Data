@@ -18,6 +18,10 @@
     flex-direction: $direction;
     justify-content: flex-start;
 
+    @if($direction ==column) {
+        align-items: flex-start;
+    }
+
 }
 
 @mixin flex-end($direction: row) {

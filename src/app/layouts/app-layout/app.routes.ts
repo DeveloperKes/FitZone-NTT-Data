@@ -17,6 +17,10 @@ export const appRoutes: Routes = [
                     categories: categoriesResolver
                 }
             },
+            {
+                path: 'course/details', loadComponent: () => import('../../shared/components').then(c => c.CourseDetailsComponent),
+                outlet: "modal"
+            },
         ]
     }
 ]
