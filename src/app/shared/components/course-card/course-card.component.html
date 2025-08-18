@@ -1,0 +1,18 @@
+@if(course){
+<div class="course-card">
+    <section class="image-content">
+        <fz-image [width]="300" class="card-image" [path]="course.thumbnailUrl" [alt]="course.title"
+            [title]="course.title" />
+    </section>
+    <section class="details">
+        <h3>{{ course.title }}</h3>
+        <p><i class="fa-solid fa-user-circle"></i> {{course.instructor}}</p>
+        <p>Nivel: {{ course.level }}</p>
+        <p>{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
+        <div class="buttons">
+            <button (click)="openDetails()" class="fz-button">Ver más</button>
+            <button class="fz-icon-button outline circle"><i class="fa-solid fa-cart-shopping"></i></button>
+        </div>
+    </section>
+</div>
+}

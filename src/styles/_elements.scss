@@ -12,6 +12,7 @@ button {
     transition: all 0.3s ease-in-out;
     width: fit-content;
     @include flex();
+    column-gap: 8px;
 
     *.fz-badge[aria-roledescription="badge"] {
         background: $white;
@@ -26,22 +27,46 @@ button {
         padding: 0 5px;
     }
 
-    &.fz-button {
+    &[class*="fz-"][class*="-button"] {
         height: 40px;
         padding: 0 16px;
-        border-radius: 8px;
-        background: $brand-rose;
+        border-radius: 100px;
+        background: $brand-orange;
         color: $white;
         width: 100%;
         user-select: none;
 
-        &:hover {
-            background: darken($brand-rose, 10%);
-        }
-
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+
+        &[class*="icon"] {
+            width: fit-content;
+        }
+
+        &.outline {
+            border: 1px solid $brand-orange;
+            background: $white;
+            color: $brand-orange;
+        }
+
+        &.circle {
+            height: 40px;
+            width: 40px;
+            flex-shrink: 0;
+        }
+
+        &.no-back {
+            background: none;
+            color: $brand-orange;
+            font-weight: 900;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        &.rose {
+            background: $brand-rose;
         }
     }
 }
@@ -65,10 +90,64 @@ ul {
 input {
     width: 100%;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 100px;
     padding: 0 16px;
     border: none;
     background: $gray;
     color: $black;
     font-size: 1rem;
+    outline: none;
+}
+
+div,
+button {
+    &.pill {
+        width: fit-content;
+        @include flex();
+        font-size: 12px;
+        background: $brand-rose;
+        color: $white;
+        padding: 4px 6px;
+        border-radius: 100px;
+        column-gap: 5px;
+    }
+}
+
+div.fz-select {
+    width: 100%;
+    position: relative;
+
+    select {
+        appearance: none;
+        width: 100%;
+        border: none;
+        background: $white;
+        outline: none;
+        padding: 0 16px;
+        height: 40px;
+        border-radius: 100px;
+
+        &.with-border {
+            border: 1px solid $brand-orange;
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        background: $brand-orange;
+        display: inline-block;
+        width: 12px;
+        height: 6px;
+        border-radius: 3px;
+        clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    }
+}
+
+fz-filter-box {
+    width: 100%;
 }

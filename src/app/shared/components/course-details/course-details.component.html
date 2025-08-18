@@ -1,0 +1,24 @@
+@if (course) {
+<section class="imageContainer">
+    <fz-image [width]="320" [path]="course.thumbnailUrl" [alt]="course.title + ' Details Image'" />
+</section>
+<section class="details">
+    <section class="pills">
+        <div class="pill">{{course.category}}Zumba</div>
+        <div class="pill">{{course.level}}</div>
+    </section>
+    <p>Instruido por: <strong>{{course.instructor}}</strong></p>
+    <!-- <p>Duración: <strong>{{course.duration}} sesiones</strong></p> -->
+    <p>{{course.description}}</p>
+    <p>Sede: <strong>{{course.headquarters}}FitZone</strong></p>
+
+    <section class="price">
+        <h4>¡Inscribete ahora!</h4>
+        <span class="amount">{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO'}}</span>
+    </section>
+    <section class="buttons">
+        <button class="fz-button">¡Quiero este curso!</button>
+        <button class="fz-button rose"><i class="fa-solid fa-cart-shopping"></i><span>Añadir al carrito</span></button>
+    </section>
+</section>
+}
