@@ -1,5 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { AlertService } from './alert.service';
+import { HttpClient } from '@angular/common/http';
+import { ResponseData, UserProduct, UserProductPayload } from '../../shared/interfaces';
 
 export type CartItemType = "class" | "plan";
 
@@ -18,10 +20,11 @@ export interface CartItem {
 })
 export class CartService {
 
-  private readonly cartItems: WritableSignal<CartItem[]> = signal([]);
+  private readonly cartItems: WritableSignal<CartItem[]> = signal(JSON.parse(localStorage.getItem("cart") ?? "[]"));
 
   constructor(
-    private readonly _alert: AlertService
+    private readonly _alert: AlertService,
+    private readonly _http: HttpClient
   ) { }
 
   get list() {
@@ -30,6 +33,7 @@ export class CartService {
 
   set list(items: CartItem[]) {
     this.cartItems.set(items);
+    this.saveCartList();
   }
 
   get count() {
@@ -56,6 +60,7 @@ export class CartService {
 
       return [...items, { id: crypto.randomUUID(), ...newItem, quantity: 1 }];
     });
+    this.saveCartList();
   }
 
   removeItem(itemId: string) {
@@ -67,6 +72,7 @@ export class CartService {
         return item;
       }).filter(item => item.quantity > 0)
     );
+    this.saveCartList();
   }
 
   openCart() {
@@ -78,5 +84,13 @@ export class CartService {
       },
       route: ["cart"]
     })
+  }
+
+  private saveCartList() {
+    localStorage.setItem("cart", JSON.stringify(this.list));
+  }
+
+  buyItems(products: UserProductPayload[]) {
+    return this._http.post<ResponseData<UserProduct[]>>("/api/users/product", { products })
   }
 }

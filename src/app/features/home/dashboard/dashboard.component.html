@@ -1,1 +1,11 @@
-<button [routerLink]="['/courses']" class="fz-button">Ir a los cursos</button>
+<section class="dashboard-content">
+    <h2>Mis cursos</h2>
+    <section class="courses">
+        @for (product of products; track $index) {
+        <div class="product-card">
+            <fz-course-card [token]="product.token" [course]="product.product" />
+        </div>
+        }
+    </section>
+    <button [routerLink]="['/courses']" class="fz-button">Ir a los cursos</button>
+</section>

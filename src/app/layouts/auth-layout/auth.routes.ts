@@ -3,13 +3,13 @@ import { withoutUserGuard } from "../../core/guards/auth.guard";
 
 export const authRoutes: Routes = [
     {
-        path: 'auth',
+        path: '',
         canActivate: [withoutUserGuard],
         loadComponent: () => import('./auth-layout.component').then(m => m.AuthLayoutComponent),
         children: [
-            { path: 'register', loadComponent: () => import('../../features/auth').then(c => c.RegisterFormComponent) },
-            { path: 'login', loadComponent: () => import('../../features/auth').then(c => c.LoginFormComponent) },
-            { path: "", redirectTo: 'login', pathMatch: 'full' }
+            { path: 'auth/register', loadComponent: () => import('../../features/auth').then(c => c.RegisterFormComponent) },
+            { path: 'auth/login', loadComponent: () => import('../../features/auth').then(c => c.LoginFormComponent) },
+            { path: "", redirectTo: '/auth/login', pathMatch: 'full' }
         ]
     }
 ]

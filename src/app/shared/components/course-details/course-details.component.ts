@@ -4,10 +4,11 @@ import { AlertService, CartService, CourseService } from '../../../core/services
 import { ImageComponent } from '../../elements';
 import { CurrencyPipe } from '@angular/common';
 import { LevelPipe } from '../../pipes';
+import { SchedulePipe } from '../../pipes/schedule.pipe';
 
 @Component({
   selector: 'fz-course-details',
-  imports: [ImageComponent, CurrencyPipe, LevelPipe],
+  imports: [ImageComponent, CurrencyPipe, LevelPipe, SchedulePipe],
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.scss'
 })
@@ -21,6 +22,8 @@ export class CourseDetailsComponent {
   ) {
     effect(() => {
       this.course = _course.current();
+      console.log(this.course);
+
     })
   }
 
@@ -46,4 +49,18 @@ export class CourseDetailsComponent {
     }, 600)
   }
 
+  goToMaps() {
+    if (this.course?.headquarters) {
+      const baseUrl = "https://www.google.com/maps/search/?api=1&query=";
+      const encoded = encodeURIComponent(this.course?.headquarters.address);
+      window.open(baseUrl + encoded, "_blank");
+    }
+  }
+
+  showModal() {
+    this._alert.closeAlert();
+    setTimeout(() => {
+      this._course.showModal();
+    }, 700);
+  }
 }
