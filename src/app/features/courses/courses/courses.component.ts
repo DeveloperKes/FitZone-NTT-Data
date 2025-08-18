@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Course, } from '../../../shared/interfaces';
 import { AlertService, CourseService } from '../../../core/services';
 import { CourseCardComponent } from '../../../shared/components/course-card/course-card.component';
-import { FilterBoxComponent } from '../../../shared/components';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -35,6 +34,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(requests => {
+      console.log(requests['courses']);
+
       this._course.list = (requests['courses'].data || []) as Course[];
     });
   }

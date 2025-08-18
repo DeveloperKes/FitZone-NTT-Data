@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 import { Headquarters } from "./Headquarters";
 import { CourseSchedule } from "./Schedule";
 
@@ -6,14 +7,14 @@ export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
 export type TimeSlot = 'morning' | 'afternoon' | 'evening';
 
 export interface Course {
-    id: string;
+    id: number;
     title: string;
     description: string;
     duration: number;
     level: CourseLevel;
     instructor: string;
     thumbnailUrl: string;
-    category: string;
+    category: Category;
     headquarters: Headquarters;
     price: number;
     schedule: CourseSchedule[];

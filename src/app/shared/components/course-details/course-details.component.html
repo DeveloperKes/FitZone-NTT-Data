@@ -4,20 +4,22 @@
 </section>
 <section class="details">
     <section class="pills">
-        <div class="pill">{{course.category}}Zumba</div>
-        <div class="pill">{{course.level}}</div>
+        <div class="pill">{{course.category.name}}</div>
+        <div class="pill">{{course.level | level}}</div>
     </section>
     <p>Instruido por: <strong>{{course.instructor}}</strong></p>
     <p>{{course.description}}</p>
-    <p>Sede: <strong>{{course.headquarters}}FitZone</strong></p>
+    <p>Sede: <strong>{{course.headquarters.name}} ({{course.headquarters.town}})</strong></p>
 
     <section class="price">
         <h4>¡Inscribete ahora!</h4>
         <span class="amount">{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO'}}</span>
     </section>
     <section class="buttons">
-        <button class="fz-button">¡Quiero este curso!</button>
-        <button class="fz-button rose"><i class="fa-solid fa-cart-shopping"></i><span>Añadir al carrito</span></button>
+        <button (click)="addCartAndGoToPay()" class="fz-button">¡Quiero este curso!</button>
+        <button (click)="addCartItem()" class="fz-button rose"><i class="fa-solid fa-cart-shopping"></i>
+            <span>Añadir al carrito</span>
+        </button>
     </section>
 </section>
 }
