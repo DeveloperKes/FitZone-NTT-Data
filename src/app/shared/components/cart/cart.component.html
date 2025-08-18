@@ -1,0 +1,34 @@
+<section class="cart-content">
+    <section class="card-list">
+        @for (item of cardItems; track $index) {
+        <div class="card-item">
+            <section class="details">
+                <div class="pill">{{item.type}}</div>
+                <h4>{{item.name}}</h4>
+                <p>{{item.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
+            </section>
+            <section class="actions">
+                <button (click)="removeItem(item.id)" class="fz-icon-button circle"><i
+                        class="fa-solid fa-minus"></i></button>
+                <strong>{{item.quantity}}</strong>
+                <button (click)="addItem(item)" class="fz-icon-button circle"><i class="fa-solid fa-plus"></i></button>
+            </section>
+        </div>
+        }
+    </section>
+    <section class="totals">
+        <p class="section-total">
+            <span class="type">Subtotal</span>
+            <span class="value">{{cartTotal | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</span>
+        </p>
+        <p class="section-total">
+            <span class="type">Promociones</span>
+            <span class="value">$0</span>
+        </p>
+        <p class="section-total total">
+            <span class="type">Total a pagar</span>
+            <span class="value">{{cartTotal | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</span>
+        </p>
+    </section>
+    <button class="fz-button">Finalizar compra</button>
+</section>

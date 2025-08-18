@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Course } from '../../interfaces';
 import { CurrencyPipe } from '@angular/common';
 import { ImageComponent } from '../../elements';
-import { AlertService, CourseService } from '../../../core/services';
+import { AlertService, CartService, CourseService } from '../../../core/services';
 
 @Component({
   selector: 'fz-course-card',
@@ -15,7 +15,8 @@ export class CourseCardComponent {
 
   constructor(
     private readonly _alert: AlertService,
-    private readonly _course: CourseService
+    private readonly _course: CourseService,
+    private readonly _cart: CartService,
   ) { }
 
   openDetails() {
@@ -28,6 +29,19 @@ export class CourseCardComponent {
           closeButton: true
         },
         route: ['course', 'details']
+      })
+    }
+  }
+
+  addToCart() {
+    if (this.course) {
+      this._cart.addItem({
+        collectionItem: "courses",
+        itemId: this.course.id,
+        price: this.course.price,
+        quantity: 1,
+        type: 'class',
+        name: this.course.title
       })
     }
   }

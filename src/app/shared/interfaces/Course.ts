@@ -6,7 +6,7 @@ export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
 export type TimeSlot = 'morning' | 'afternoon' | 'evening';
 
 export interface Course {
-    id: string;
+    id: number;
     title: string;
     description: string;
     duration: number;

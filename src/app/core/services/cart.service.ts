@@ -1,4 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
+import { AlertService } from './alert.service';
 
 export type CartItemType = "class" | "plan";
 
@@ -9,6 +10,7 @@ export interface CartItem {
   price: number;
   quantity: number;
   type: CartItemType;
+  name: string;
 }
 
 @Injectable({
@@ -18,7 +20,9 @@ export class CartService {
 
   private readonly cartItems: WritableSignal<CartItem[]> = signal([]);
 
-  constructor() { }
+  constructor(
+    private readonly _alert: AlertService
+  ) { }
 
   get list() {
     return this.cartItems();
@@ -32,8 +36,26 @@ export class CartService {
     return this.cartItems().reduce((acc, item) => acc + item.quantity, 0);
   }
 
-  addItem(item: Omit<CartItem, "id">) {
-    this.cartItems.update(i => [...i, { id: window.crypto.randomUUID(), ...item }]);
+  get total() {
+    return this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
+  }
+
+  addItem(newItem: Omit<CartItem, "id">) {
+    this.cartItems.update(items => {
+      const existing = items.find(
+        i => i.itemId === newItem.itemId && i.collectionItem === newItem.collectionItem
+      );
+
+      if (existing) {
+        return items.map(item =>
+          item.itemId === newItem.itemId && item.collectionItem === newItem.collectionItem
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+
+      return [...items, { id: crypto.randomUUID(), ...newItem, quantity: 1 }];
+    });
   }
 
   removeItem(itemId: string) {
@@ -45,5 +67,16 @@ export class CartService {
         return item;
       }).filter(item => item.quantity > 0)
     );
+  }
+
+  openCart() {
+    this._alert.openAlert({
+      type: "modal",
+      header: {
+        title: "Carrito",
+        closeButton: true
+      },
+      route: ["cart"]
+    })
   }
 }

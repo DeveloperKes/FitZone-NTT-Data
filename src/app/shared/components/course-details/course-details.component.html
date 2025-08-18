@@ -16,8 +16,9 @@
         <span class="amount">{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO'}}</span>
     </section>
     <section class="buttons">
-        <button class="fz-button">¡Quiero este curso!</button>
-        <button class="fz-button rose"><i class="fa-solid fa-cart-shopping"></i><span>Añadir al carrito</span></button>
+        <button (click)="addCartAndGoToPay()" class="fz-button">¡Quiero este curso!</button>
+        <button (click)="addCartItem()" class="fz-button rose"><i class="fa-solid fa-cart-shopping"></i><span>Añadir al
+                carrito</span></button>
     </section>
 </section>
 }

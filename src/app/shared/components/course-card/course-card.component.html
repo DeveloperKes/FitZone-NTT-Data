@@ -11,7 +11,8 @@
         <p>{{ course.price | currency: 'COP': 'symbol-narrow': '1.0-0': 'es-CO' }}</p>
         <div class="buttons">
             <button (click)="openDetails()" class="fz-button">Ver más</button>
-            <button class="fz-icon-button outline circle"><i class="fa-solid fa-cart-shopping"></i></button>
+            <button (click)="addToCart()" class="fz-icon-button outline circle"><i
+                    class="fa-solid fa-cart-shopping"></i></button>
         </div>
     </section>
 </div>

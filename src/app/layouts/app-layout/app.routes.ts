@@ -29,6 +29,10 @@ export const appRoutes: Routes = [
                     categories: categoriesResolver
                 }
             },
+            {
+                path: 'cart', loadComponent: () => import('../../shared/components').then(c => c.CartComponent),
+                outlet: "modal",
+            },
         ]
     }
 ]

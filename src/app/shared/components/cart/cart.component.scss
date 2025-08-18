@@ -1,0 +1,111 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+:host {
+    width: 100%;
+}
+
+section.cart-content {
+    width: 100%;
+    @include flex-start(column);
+    row-gap: 16px;
+    background: $white;
+
+    section.card-list {
+        width: 100%;
+        @include flex-start(column);
+        max-height: 500px;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        div.card-item {
+            width: 100%;
+            @include flex-between();
+            row-gap: 16px;
+            padding: 8px 16px;
+
+            &:not(:last-of-type) {
+                border-bottom: 1px solid $dark-blue;
+            }
+
+            section.details {
+                @include flex-start(column);
+                row-gap: 4px;
+
+                h4 {
+                    color: $brand-orange;
+                    width: 210px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    display: block;
+                }
+
+                p {
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: $dark-blue;
+                }
+            }
+
+            section.actions {
+                @include flex();
+                column-gap: 8px;
+
+                button.fz-icon-button {
+                    width: 20px;
+                    height: 20px;
+                    font-size: 10px;
+                }
+
+                strong {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+
+    section.totals {
+        padding: 16px;
+        width: 100%;
+        @include flex-end(column);
+        align-items: flex-end;
+        row-gap: 8px;
+
+        p.section-total {
+            width: 100%;
+            @include flex-between();
+            column-gap: 8px;
+            color: $dark-blue;
+
+            &:not(.total) {
+                span.type {
+                    font-size: 12px;
+                }
+
+                span.value {
+                    font-size: 14px;
+                }
+            }
+
+            &.total {
+
+                span.type,
+                span.value {
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+
+                span.value {
+                    color: $brand-rose;
+                }
+            }
+        }
+    }
+
+    button.fz-button {
+        width: 95%;
+        margin: auto;
+        margin-bottom: 8px;
+    }
+}
