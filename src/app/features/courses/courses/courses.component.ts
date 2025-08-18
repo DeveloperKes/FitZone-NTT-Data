@@ -35,6 +35,7 @@ export class CoursesComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(requests => {
       this._course.list = (requests['courses'].data || []) as Course[];
+      console.log(this._course.list);
     });
   }
 

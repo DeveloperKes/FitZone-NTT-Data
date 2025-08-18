@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
         path: '',
         loadComponent: () => import('./app-layout.component').then(m => m.AppLayoutComponent),
         children: [
-            { path: '', loadComponent: () => import('../../features').then(c => c.LandingComponent) },
+            // { path: '', loadComponent: () => import('../../features').then(c => c.LandingComponent) },
             {
                 path: 'home', canActivate: [authGuard], loadComponent: () => import('../../features').then(c => c.DashboardComponent),
                 resolve: {
