@@ -1,49 +1,90 @@
 <section class="filter-box">
-    <div class="filter-item">
-        <label for="duration">Duración</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Todos</option>
-            <option value="short">Corta</option>
-            <option value="medium">Media</option>
-            <option value="long">Larga</option>
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Sede</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier sede</option>
-            @for (headquarter of headquarters; track $index) {
-            <option [value]="headquarter.id">{{headquarter.name}}</option>
-            }
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Categoría</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Todas</option>
-            @for (category of categories; track $index) {
-            <option [value]="category.id">{{category.name}}</option>
-            }
-        </select>
-    </div>
-    <div class="filter-item">
-        <label for="duration">Horario</label>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier día</option>
-            <option value="all">Lunes</option>
-            <option value="all">Martes</option>
-            <option value="all">Miércoles</option>
-            <option value="all">Jueves</option>
-            <option value="all">Viernes</option>
-            <option value="all">Sábado</option>
-            <option value="all">Domingo</option>
-        </select>
-        <select id="duration" class="fz-select">
-            <option value="all">Cualquier jornada</option>
-            <option value="all">Mañana</option>
-            <option value="all">Tarde</option>
-            <option value="all">Noche</option>
-        </select>
-    </div>
-    <button (click)="applyFilters()" class="fz-button">Aplicar filtros</button>
+    <form [formGroup]="form">
+
+        <div class="filter-item">
+            <h4>Sedes</h4>
+            <div class="fz-select">
+                <select formControlName="headquarters" class="with-border">
+                    <option value="all">Cualquier sede</option>
+                    @for (headquarter of headquarters; track $index) {
+                    <option [value]="headquarter.id">{{headquarter.name}}</option>
+                    }
+                </select>
+            </div>
+            <div class="pills">
+                @for (pill of _course.headquartersFilters(); track $index) {
+                <button (click)="deletePill(pill.key, _course.headquartersFilters)" class="pill">{{pill.value}} <i
+                        class="fa-solid fa-times"></i></button>
+                }
+            </div>
+        </div>
+        <div class="filter-item">
+            <h4>Categorías</h4>
+            <div class="fz-select">
+                <select formControlName="categories" class="with-border">
+                    <option value="all">Todas</option>
+                    @for (category of categories; track $index) {
+                    <option [value]="category.id">{{category.name}}</option>
+                    }
+                </select>
+            </div>
+            <div class="pills">
+                @for (pill of _course.categoriesFilters(); track $index) {
+                <button (click)="deletePill(pill.key, _course.categoriesFilters)" class="pill">{{pill.value}} <i
+                        class="fa-solid fa-times"></i></button>
+                }
+            </div>
+        </div>
+        <div class="filter-item">
+            <h4>Nivel</h4>
+            <div class="fz-select">
+                <select formControlName="levels" class="with-border">
+                    <option value="all">Cualquier nivel</option>
+                    @for (level of levels; track $index) {
+                    <option [value]="level.id">{{level.label}}</option>
+                    }
+                </select>
+            </div>
+            <div class="pills">
+                @for (pill of _course.levelFilters(); track $index) {
+                <button (click)="deletePill(pill.key, _course.levelFilters)" class="pill">{{pill.value}} <i
+                        class="fa-solid fa-times"></i></button>
+                }
+            </div>
+        </div>
+        <div class="filter-item">
+            <h4>Horario</h4>
+            <h4>Día de la semana</h4>
+            <div class="fz-select">
+                <select formControlName="days" class="with-border">
+                    <option value="all">Cualquier día</option>
+                    @for (day of daysWeek; track $index) {
+                    <option [value]="day.id">{{day.label}}</option>
+                    }
+                </select>
+            </div>
+            <div class="pills">
+                @for (pill of _course.daysFilters(); track $index) {
+                <button (click)="deletePill(pill.key, _course.daysFilters)" class="pill">{{pill.value}} <i
+                        class="fa-solid fa-times"></i></button>
+                }
+            </div>
+            <h4>Jornada</h4>
+            <div class="fz-select">
+                <select formControlName="shift" class="with-border">
+                    <option value="all">Cualquier jornada</option>
+                    @for (shift of shifts; track $index) {
+                    <option [value]="shift.id">{{shift.label}}</option>
+                    }
+                </select>
+            </div>
+            <div class="pills">
+                @for (pill of _course.shiftFilters(); track $index) {
+                <button (click)="deletePill(pill.key, _course.shiftFilters)" class="pill">{{pill.value}} <i
+                        class="fa-solid fa-times"></i></button>
+                }
+            </div>
+        </div>
+        <button (click)="_course.applyFilters()" class="fz-button rose">Aplicar filtros</button>
+    </form>
 </section>

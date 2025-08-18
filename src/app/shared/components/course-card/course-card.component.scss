@@ -9,7 +9,7 @@ div.course-card {
     @include flex-start();
     column-gap: 24px;
 
-    section.image-content{
+    section.image-content {
         width: 200px;
         overflow: hidden;
         @include flex();
@@ -23,7 +23,11 @@ div.course-card {
         row-gap: 8px;
         padding-right: 16px;
 
-        div.buttons{
+        h3 {
+            text-align: center;
+        }
+
+        div.buttons {
             width: 100%;
             @include flex();
             column-gap: 8px;

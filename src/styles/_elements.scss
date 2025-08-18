@@ -99,7 +99,8 @@ input {
     outline: none;
 }
 
-div {
+div,
+button {
     &.pill {
         width: fit-content;
         @include flex();
@@ -108,5 +109,45 @@ div {
         color: $white;
         padding: 4px 6px;
         border-radius: 100px;
+        column-gap: 5px;
     }
+}
+
+div.fz-select {
+    width: 100%;
+    position: relative;
+
+    select {
+        appearance: none;
+        width: 100%;
+        border: none;
+        background: $white;
+        outline: none;
+        padding: 0 16px;
+        height: 40px;
+        border-radius: 100px;
+
+        &.with-border {
+            border: 1px solid $brand-orange;
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        background: $brand-orange;
+        display: inline-block;
+        width: 12px;
+        height: 6px;
+        border-radius: 3px;
+        clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    }
+}
+
+fz-filter-box {
+    width: 100%;
 }

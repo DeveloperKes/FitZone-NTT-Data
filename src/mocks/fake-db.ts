@@ -82,14 +82,20 @@ export class FakeBackendService {
         let cursor = await store.openCursor();
         const results: any[] = [];
 
+        Object.keys(filters).forEach((key) => {
+            if (filters[key].length == 0) delete filters[key];
+        })
+
         while (cursor) {
             const item = cursor.value;
 
             const match = Object.keys(filters).every(key => {
-                if (!item[key]) return true;
+                if (!item[key] && filters[key].length <= 0) return true;
+
                 if (filters[key].includes(item[key])) return true;
                 return false;
             });
+
 
             if (match) results.push(item);
 
@@ -151,12 +157,15 @@ export class FakeBackendService {
 
                 if (filters["schedule"]) {
                     const { dayOfWeek, shift } = filters["schedule"] as unknown as { dayOfWeek: DayOfWeek[], shift: ScheduleShift[] };
-                    const schedules = await this.getByFilters("schedules", {
-                        dayOfWeek, shift
-                    })
-                    filters['id'] = schedules.map(item => item.courseId);
+                    if (dayOfWeek.length > 0 || shift.length > 0) {
+                        const schedules = await this.getByFilters("schedules", {
+                            dayOfWeek, shift
+                        })
+                        filters['id'] = schedules.map(item => item.courseId);
+                    }
                     delete filters['schedule'];
                 }
+
                 const data = await this.getByFilters("courses", filters);
 
                 return this.buildResponse(200, data, "Ok")

@@ -1,30 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course, } from '../../../shared/interfaces';
-import { CourseService } from '../../../core/services';
+import { AlertService, CourseService } from '../../../core/services';
 import { CourseCardComponent } from '../../../shared/components/course-card/course-card.component';
+import { FilterBoxComponent } from '../../../shared/components';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'fz-courses',
-  imports: [CourseCardComponent],
+  imports: [CourseCardComponent, ReactiveFormsModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
+  form: FormGroup;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly _course: CourseService,
+    private readonly _alert: AlertService,
+    private readonly _fb: FormBuilder
   ) {
-
+    this.form = _fb.group({
+      search: ["", []]
+    })
+    effect(() => {
+      this.courses = _course.list;
+    })
+    this.form.controls["search"].valueChanges.subscribe({
+      next: (value: string) => this.search()
+    })
   }
 
   ngOnInit() {
     this.route.data.subscribe(requests => {
-      this.courses = requests['courses'].data || [];
+      this._course.list = (requests['courses'].data || []) as Course[];
     });
   }
 
+  openFilters() {
+    this._alert.openAlert({
+      type: "modal",
+      header: {
+        closeButton: true,
+        title: "Personalizar búsqueda"
+      },
+      route: ['filters']
+    })
+  }
+
+  search() {
+    const strValue: string = this.form.controls["search"].value;
+    if (strValue != "") {
+      this.courses = this._course.list.filter((course) =>
+        course.title.toLowerCase().includes(strValue.toLowerCase())
+      )
+    }
+    else this.courses = this._course.list;
+  }
 
 }

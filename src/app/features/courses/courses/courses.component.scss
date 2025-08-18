@@ -13,6 +13,10 @@ section.fz-section {
     &.search-box {
         @include flex();
         column-gap: 8px;
+
+        form {
+            width: 100%;
+        }
     }
 
     &.results-counter {

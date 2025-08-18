@@ -21,6 +21,13 @@ export const appRoutes: Routes = [
                 path: 'course/details', loadComponent: () => import('../../shared/components').then(c => c.CourseDetailsComponent),
                 outlet: "modal"
             },
+            {
+                path: 'filters', loadComponent: () => import('../../shared/components').then(c => c.FilterBoxComponent),
+                outlet: "modal", resolve: {
+                    headquarters: headquartersResolver,
+                    categories: categoriesResolver
+                }
+            },
         ]
     }
 ]

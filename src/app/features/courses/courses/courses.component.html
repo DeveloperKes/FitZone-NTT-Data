@@ -1,7 +1,9 @@
 <section class="fz-section search-box">
-    <input type="text" class="fz-search" placeholder="Buscar cursos" />
-    <button class="fz-icon-button circle"><i class="fa-solid fa-search"></i></button>
-    <button class="fz-icon-button outline circle"><i class="fa-solid fa-filter"></i></button>
+    <form [formGroup]="form">
+        <input formControlName="search" type="text" class="fz-search" placeholder="Buscar clases" />
+    </form>
+    <button (click)="search()" class="fz-icon-button circle"><i class="fa-solid fa-search"></i></button>
+    <button (click)="openFilters()" class="fz-icon-button outline circle"><i class="fa-solid fa-filter"></i></button>
 </section>
 <section class="fz-section results-counter">
     <span>Resultados encontrados: {{courses.length}}</span>
