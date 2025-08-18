@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../../core/services';
+import { AlertService, UserService } from '../../../core/services';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -14,7 +14,8 @@ export class LoginFormComponent {
   constructor(
     fb: FormBuilder,
     private readonly _userService: UserService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _alert: AlertService
   ) {
     this.form = fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9-_]+$/)]],
@@ -33,6 +34,14 @@ export class LoginFormComponent {
         },
         error: (error) => {
           console.error('Login failed:', error);
+          this._alert.openAlert({
+            type: "toast",
+            content: {
+              title: "Valida tus credenciales e intenta nuevamente.",
+              timer: 5000,
+              toastType: "error"
+            }
+          })
         }
       });
       this.form.reset();

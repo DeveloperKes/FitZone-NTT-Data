@@ -212,11 +212,13 @@ export class FakeBackendService {
     }
 
     private buildResponse(code: number, data?: any, message?: string, error?: any): ResponseData<any> {
-        return {
+        const response = {
             message: message ?? "OK",
             code,
             data: data ?? null,
             error: error ?? null
-        }
+        };
+        if (error) throw response;
+        return response;
     }
 }

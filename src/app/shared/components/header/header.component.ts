@@ -17,16 +17,23 @@ export class HeaderComponent {
     private readonly _alert: AlertService
   ) { }
   openCart() {
-    if (this._user.current == null) this._router.navigate(['auth', 'login']);
+    if (this._user.current == null) {
+      this._router.navigate(['auth', 'login']);
+      return;
+    }
     if (this._cart.count == 0) {
       this._alert.openAlert({
         type: "toast",
         content: {
           title: "No tienes articulos en tu carrito.",
           toastType: "info",
-          timer: 3000
+          // timer: 3000
         }
-      })
+      });
+      return;
     }
+
+    console.log("Carrisimo");
+    
   }
 }

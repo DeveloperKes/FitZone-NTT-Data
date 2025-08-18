@@ -11,7 +11,8 @@ body {
     background-image: radial-gradient(circle at top left, #a69ebc, #d1bec7);
     min-height: 100vh;
     background-size: cover;
-    border-bottom-right-radius: 3rem;
-    border-bottom-left-radius: 3rem;
     background-attachment: scroll !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
 }

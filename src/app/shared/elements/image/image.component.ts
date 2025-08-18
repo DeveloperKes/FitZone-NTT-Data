@@ -32,6 +32,8 @@ import { NgOptimizedImage } from '@angular/common';
       --box-shadow: none;
       --object-fit: cover;
       --object-position: center;
+      --host-height: auto;
+      height: var(--host-height, auto) !important;
     }
     img {
       display: inline-block;
