@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 import { Headquarters } from "./Headquarters";
 import { CourseSchedule } from "./Schedule";
 
@@ -13,7 +14,7 @@ export interface Course {
     level: CourseLevel;
     instructor: string;
     thumbnailUrl: string;
-    category: string;
+    category: Category;
     headquarters: Headquarters;
     price: number;
     schedule: CourseSchedule[];

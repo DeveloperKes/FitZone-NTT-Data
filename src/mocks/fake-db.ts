@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-import { DayOfWeek, ResponseData, ScheduleShift, User } from "../app/shared/interfaces";
+import { Category, Course, CoursePayload, CourseSchedule, DayOfWeek, Headquarters, ResponseData, ScheduleShift, User } from "../app/shared/interfaces";
 export class FakeBackendService {
     private readonly dbPromise = openDB("fake-db", 1, {
         upgrade(db) {
@@ -138,7 +138,17 @@ export class FakeBackendService {
                 return this.buildResponse(400, null, "Invalid credentials", new Error("Invalid credentials"))
             }
             if (url === "/courses" && method === "GET") {
-                const data = await this.getAll("courses");
+                const headquarters = await this.getAll("headquarters") as Headquarters[];
+                const categories = await this.getAll("categories") as Category[];
+                const schedules = await this.getAll("schedules") as CourseSchedule[];
+                const data = (await this.getAll("courses")).map((item: Partial<Course & CoursePayload>) => {
+                    return {
+                        ...item,
+                        category: categories.find(c => c.id == item.categoryId),
+                        headquarters: headquarters.find(h => h.id === item.headquartersId),
+                        schedules: schedules.filter(s => s.courseId === item.id)
+                    }
+                });
                 return this.buildResponse(200, data, "Ok");
             }
 

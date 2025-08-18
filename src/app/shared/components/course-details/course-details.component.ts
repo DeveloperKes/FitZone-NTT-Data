@@ -3,10 +3,11 @@ import { Course } from '../../interfaces';
 import { AlertService, CartService, CourseService } from '../../../core/services';
 import { ImageComponent } from '../../elements';
 import { CurrencyPipe } from '@angular/common';
+import { LevelPipe } from '../../pipes';
 
 @Component({
   selector: 'fz-course-details',
-  imports: [ImageComponent, CurrencyPipe],
+  imports: [ImageComponent, CurrencyPipe, LevelPipe],
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.scss'
 })

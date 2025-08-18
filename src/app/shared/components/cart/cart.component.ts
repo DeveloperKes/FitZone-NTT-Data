@@ -2,10 +2,11 @@ import { Component, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService, CartItem, CartService } from '../../../core/services';
 import { CurrencyPipe } from '@angular/common';
+import { ProductTypePipe } from '../../pipes';
 
 @Component({
   selector: 'fz-cart',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, ProductTypePipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -37,5 +38,22 @@ export class CartComponent {
       ...item,
       quantity: 1
     })
+  }
+
+  buy() {
+    this._alert.closeAlert();
+
+
+    setTimeout(() => {
+      this._cart.list = [];
+      this._alert.openAlert({
+        type: 'toast',
+        content: {
+          title: "¡Compra realizada con éxito!",
+          toastType: "success",
+          timer: 4000
+        }
+      })
+    }, 600);
   }
 }
